@@ -32,4 +32,5 @@
         android:name="com.example.task.ui.onboarding.OnBoardingFragment"
         android:label="fragment_on_boarding"
         tools:layout="@layout/fragment_on_boarding" />
+
 </navigation>
