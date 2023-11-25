@@ -35,7 +35,8 @@ class TaskFragment : Fragment() {
                 )
                 setFragmentResult(TASK_KEY_R, bundleOf(TASK_KEY to data))
                 findNavController().navigateUp()
-            } else {
+            }else{
+                binding.etDesc.error= getString(R.string.error_taitel)
                 Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
             }
 
