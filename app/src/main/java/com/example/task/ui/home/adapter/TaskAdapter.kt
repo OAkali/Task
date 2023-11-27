@@ -2,19 +2,19 @@ package com.example.task.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.task.databinding.ItemTaskBinding
 import com.example.task.model.TaskList
+import kotlin.reflect.KFunction1
 
-class TaskAdapter : Adapter<TaskAdapter.Holder>() {
-    private val list = arrayListOf<TaskList>(
-    )
+class TaskAdapter(val onLongClickInt: KFunction1<TaskList, Unit>): Adapter<TaskAdapter.Holder>() {
+    private val list = arrayListOf<TaskList>()
 
-    fun addTask(task: TaskList) {
-        list.add(0, task)
-        notifyItemChanged(0)
+    fun addTasks(tasks:List<TaskList>) {
+        list.clear()
+        list.addAll(tasks)
+        notifyDataSetChanged()
     }
 
 
@@ -41,6 +41,10 @@ class TaskAdapter : Adapter<TaskAdapter.Holder>() {
                     tvTask.text = title
                     tvDesc.text = desc
                 }
+            }
+            itemView.setOnLongClickListener {
+                onLongClickInt(task)
+                true
             }
         }
     }
