@@ -14,6 +14,7 @@ import com.example.task.App
 import com.example.task.R
 import com.example.task.databinding.FragmentTaskBinding
 import com.example.task.model.TaskList
+import com.example.task.ui.home.HomeFragment
 
 class TaskFragment : Fragment() {
     private lateinit var binding: FragmentTaskBinding
@@ -28,23 +29,37 @@ class TaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val task=arguments?.getSerializable(HomeFragment.TASK_KEY)as TaskList
+        if (task!=null){
+            binding.save.text= getString(R.string.update)
+            binding.etTitle.setText(task.title)
+            binding.etDesc.setText(task.desc)
+        }
         binding.save.setOnClickListener {
             if (!binding.etTitle.text?.toString()
                     .isNullOrEmpty() && !binding.etDesc.text?.toString().isNullOrEmpty()
             ) {
-                val data = TaskList(
-                    title = binding.etTitle.text.toString(),
-                    desc = binding.etDesc.text.toString()
-                )
-                App.db.taskDao().insert(data)
+                if (task!=null){
+                    update(task)
+                }else save()
                 findNavController().navigateUp()
             } else {
                 Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
             }
-
-
         }
-
+    }
+    private fun update(task: TaskList){
+     App.db.taskDao().update(task.copy(
+         title = binding.etTitle.text.toString() ,
+         desc = binding.etDesc.text.toString()
+     ))
+    }
+    private fun save(){
+        val data = TaskList(
+            title = binding.etTitle.text.toString(),
+            desc = binding.etDesc.text.toString()
+        )
+        App.db.taskDao().insert(data)
     }
 
     companion object {

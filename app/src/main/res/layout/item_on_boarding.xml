@@ -18,15 +18,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imagev"
+    <com.airbnb.lottie.LottieAnimationView
+        app:lottie_fileName="Animation.json"
+        android:id="@+id/LAV"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"/>
 
     <TextView
         android:id="@+id/title"
@@ -36,7 +38,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imagev" />
+        app:layout_constraintTop_toBottomOf="@id/LAV" />
 
     <TextView
         android:layout_width="wrap_content"

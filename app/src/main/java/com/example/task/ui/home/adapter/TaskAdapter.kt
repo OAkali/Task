@@ -8,10 +8,14 @@ import com.example.task.databinding.ItemTaskBinding
 import com.example.task.model.TaskList
 import kotlin.reflect.KFunction1
 
-class TaskAdapter(val onLongClickInt: KFunction1<TaskList, Unit>): Adapter<TaskAdapter.Holder>() {
+class TaskAdapter(
+    val onLongClickInt: (TaskList) -> Unit,
+    val onClickItem: (TaskList) -> Unit
+) : Adapter<TaskAdapter.Holder>() {
+
     private val list = arrayListOf<TaskList>()
 
-    fun addTasks(tasks:List<TaskList>) {
+    fun addTasks(tasks: List<TaskList>) {
         list.clear()
         list.addAll(tasks)
         notifyDataSetChanged()
@@ -45,6 +49,9 @@ class TaskAdapter(val onLongClickInt: KFunction1<TaskList, Unit>): Adapter<TaskA
             itemView.setOnLongClickListener {
                 onLongClickInt(task)
                 true
+            }
+            itemView.setOnClickListener{
+                onClickItem(task)
             }
         }
     }

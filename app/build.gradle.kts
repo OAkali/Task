@@ -43,7 +43,6 @@ android {
 dependencies {
 
     implementation("androidx.core:core-ktx:1.9.0")
-
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -63,6 +62,8 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
+    val lottieVersion="3.4.0"
+    implementation("com.airbnb.android:lottie:$lottieVersion")
 
 
 }

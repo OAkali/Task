@@ -11,10 +11,18 @@ import com.example.task.model.OnBoarding
 
 class OnBoardingAdapter(private val onClick: () -> Unit) : Adapter<OnBoardingAdapter.Holder>() {
     private val list = arrayListOf<OnBoarding>(
-        OnBoarding("https://pngimg.com/uploads/simpsons/simpsons_PNG35.png", "ДжоДжо", "Симпсон"),
-        OnBoarding("https://static.wikia.nocookie.net/simpsons/images/0/02/Homer_Simpson_2006.png/revision/latest?cb=20141029075756&path-prefix=ru", "Гомер", "Симпсон"),
-        OnBoarding("https://static.wikia.nocookie.net/simpsons/images/5/57/Lisa_Simpson2.png/revision/latest?cb=20140517140928&path-prefix=ru", "Лиза", "Симпсон"),
-        )
+        OnBoarding("" , " title1", "deck1"),
+        OnBoarding(
+            "https://static.wikia.nocookie.net/simpsons/images/0/02/Homer_Simpson_2006.png/revision/latest?cb=20141029075756&path-prefix=ru",
+            " title2",
+            "deck2"
+        ),
+        OnBoarding(
+            "https://static.wikia.nocookie.net/simpsons/images/5/57/Lisa_Simpson2.png/revision/latest?cb=20140517140928&path-prefix=ru",
+            " title3",
+            "deck3"
+        ),
+    )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         return Holder(
@@ -39,11 +47,11 @@ class OnBoardingAdapter(private val onClick: () -> Unit) : Adapter<OnBoardingAda
                 boarding.apply {
                     title.text = name
                     lastName.text = last
-                    Glide.with(imagev).load(image).into(imagev)
+                    Glide.with(LAV).load(image).into(LAV)
                     next.isVisible = adapterPosition == list.lastIndex
                     skip.isVisible = adapterPosition != list.lastIndex
-                    next.setOnClickListener{onClick()}
-                    skip.setOnClickListener{onClick()}
+                    next.setOnClickListener { onClick() }
+                    skip.setOnClickListener { onClick() }
 
                 }
             }
