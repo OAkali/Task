@@ -10,7 +10,7 @@ import kotlin.reflect.KFunction1
 
 class TaskAdapter(
     val onLongClickInt: (TaskList) -> Unit,
-    val onClickItem: (TaskList) -> Unit
+    val onClickInt: (TaskList) -> Unit
 ) : Adapter<TaskAdapter.Holder>() {
 
     private val list = arrayListOf<TaskList>()
@@ -51,7 +51,7 @@ class TaskAdapter(
                 true
             }
             itemView.setOnClickListener{
-                onClickItem(task)
+                onClickInt(task)
             }
         }
     }

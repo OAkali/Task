@@ -1,14 +1,11 @@
 package com.example.task.ui.task
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
-import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.task.App
 import com.example.task.R
@@ -29,32 +26,36 @@ class TaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val task=arguments?.getSerializable(HomeFragment.TASK_KEY)as TaskList
-        if (task!=null){
-            binding.save.text= getString(R.string.update)
+        val task = arguments?.getSerializable(HomeFragment.TASK_KEY) as TaskList?
+        if (task != null) {
+            binding.save.text = getString(R.string.update)
             binding.etTitle.setText(task.title)
             binding.etDesc.setText(task.desc)
         }
         binding.save.setOnClickListener {
-            if (!binding.etTitle.text?.toString()
-                    .isNullOrEmpty() && !binding.etDesc.text?.toString().isNullOrEmpty()
+            if (!binding.etTitle.text
+                    .isNullOrEmpty() && !binding.etDesc.text.isNullOrEmpty()
             ) {
-                if (task!=null){
+                if (task != null) {
                     update(task)
-                }else save()
+                } else {
+                    save()
+                }
                 findNavController().navigateUp()
-            } else {
-                Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
-            }
+            } else Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
         }
     }
-    private fun update(task: TaskList){
-     App.db.taskDao().update(task.copy(
-         title = binding.etTitle.text.toString() ,
-         desc = binding.etDesc.text.toString()
-     ))
+
+    private fun update(task: TaskList) {
+        App.db.taskDao().update(
+            task.copy(
+                title = binding.etTitle.text.toString(),
+                desc = binding.etDesc.text.toString()
+            )
+        )
     }
-    private fun save(){
+
+    private fun save() {
         val data = TaskList(
             title = binding.etTitle.text.toString(),
             desc = binding.etDesc.text.toString()
